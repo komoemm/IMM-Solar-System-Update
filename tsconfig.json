@@ -13,11 +13,6 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": ["./*"]
     }
@@ -29,5 +24,5 @@
     "app/**/*.tsx",
     "vite.config.ts"
   ],
-  "exclude": ["node_modules", "db", "worker", "drizzle", "tests", "dist"]
+  "exclude": ["node_modules", "dist"]
 }
