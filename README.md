@@ -1,11 +1,53 @@
-<div align="center">
+# Solar Hybrid System Explorer
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Interactive learning webpage for understanding a factory solar and hybrid
+energy system with:
 
-  <h1>Built with AI Studio</h2>
+- 170 identical 710 W solar panels (120.70 kWp)
+- 14 PV strings
+- 2 x Solis 50 kW hybrid inverters
+- 2 battery packs
+- Grid, generator, switching and critical loads
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Open the website online
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+https://solar-hybrid-explorer.fmgimuzuljb.chatgpt.site
 
-</div>
+## Run on your computer
+
+Requirements:
+
+- Node.js 22.13 or newer
+- npm
+
+Open a terminal inside this folder and run:
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the local address shown in the terminal.
+
+## Edit the webpage
+
+The main files are:
+
+- `app/page.tsx` - website content and interactive functions
+- `app/globals.css` - colors, layout and responsive design
+- `app/layout.tsx` - page title and metadata
+
+After making changes, verify the production build with:
+
+```bash
+npm run build
+```
+
+## Important engineering assumption
+
+The 170-panel string plan assumes all installed panels are identical 710 W
+modules. If different panel models or wattages are used, the PV string and
+MPPT arrangement must be recalculated and approved by the responsible
+electrical engineer.
+
+This webpage is a conceptual learning tool, not a construction drawing.

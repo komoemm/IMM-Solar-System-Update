@@ -1,0 +1,6 @@
+{
+  "name": "Solar Hybrid System Explorer",
+  "description": "Interactive learning webpage for understanding a 170-panel factory solar and hybrid energy system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
