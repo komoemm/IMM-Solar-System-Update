@@ -57,7 +57,8 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     protectionRequirement: "DC surge protection (Type II SPD), gPV string fuses, DC isolator.",
     toConfirmItems: [
       "Confirm all 85 panels are identical 710W modules",
-      "Verify cold-temperature Voc string calculation against 1000V DC limit"
+      "Cold-temperature Voc must be calculated using the exact panel Voc temperature coefficient and the minimum design temperature.",
+      "Manufacturer reference—verify the exact installed inverter model."
     ],
     ratingProvisional: "60.35 kWp total, Vmp ~484.8V-525.2V, Voc ~579.6V-627.9V",
   },
@@ -77,7 +78,8 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     protectionRequirement: "DC surge protection (Type II SPD), gPV string fuses, DC isolator.",
     toConfirmItems: [
       "Confirm all 85 panels are identical 710W modules",
-      "Verify cold-temperature Voc string calculation against 1000V DC limit"
+      "Cold-temperature Voc must be calculated using the exact panel Voc temperature coefficient and the minimum design temperature.",
+      "Manufacturer reference—verify the exact installed inverter model."
     ],
     ratingProvisional: "60.35 kWp total, Vmp ~484.8V-525.2V, Voc ~579.6V-627.9V",
   },
@@ -94,9 +96,9 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineeringPurpose: "DC string isolation, gPV overcurrent fuses per string, and Type II DC Surge Protective Device (SPD) before entering Inverter 1 DC terminals.",
     connectedFrom: ["PV Array Group 1 (pv_group1)"],
     connectedTo: ["Inverter 1 DC Inputs (inv1)"],
-    protectionRequirement: "1000V DC Isolator, 25A gPV Fuses, 1000V DC Type II SPD.",
-    toConfirmItems: ["Enclosure IP rating (IP65 required for outdoor installation)", "Fuse rating confirmation based on Isc = 18.59A"],
-    ratingProvisional: "1000V DC / 125A DC Isolator",
+    protectionRequirement: "1000V DC Isolator, gPV Fuses, 1000V DC Type II SPD. Ratings to be calculated.",
+    toConfirmItems: ["Enclosure IP rating (IP65 required for outdoor installation)", "Fuse rating to be calculated based on Isc = 18.59A"],
+    ratingProvisional: "Rating to be calculated",
   },
 
   dc_prot2: {
@@ -111,9 +113,9 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineeringPurpose: "DC string isolation, gPV overcurrent fuses per string, and Type II DC Surge Protective Device (SPD) before entering Inverter 2 DC terminals.",
     connectedFrom: ["PV Array Group 2 (pv_group2)"],
     connectedTo: ["Inverter 2 DC Inputs (inv2)"],
-    protectionRequirement: "1000V DC Isolator, 25A gPV Fuses, 1000V DC Type II SPD.",
-    toConfirmItems: ["Enclosure IP rating (IP65 required for outdoor installation)", "Fuse rating confirmation based on Isc = 18.59A"],
-    ratingProvisional: "1000V DC / 125A DC Isolator",
+    protectionRequirement: "1000V DC Isolator, gPV Fuses, 1000V DC Type II SPD. Ratings to be calculated.",
+    toConfirmItems: ["Enclosure IP rating (IP65 required for outdoor installation)", "Fuse rating to be calculated based on Isc = 18.59A"],
+    ratingProvisional: "Rating to be calculated",
   },
 
   inv1: {
@@ -130,10 +132,11 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     connectedTo: ["Inverter 1 AC MCCB (mccb1)"],
     protectionRequirement: "Internal AC/DC overcurrent, islanding protection, reverse polarity, thermal protection.",
     toConfirmItems: [
+      "Conceptual connection—manufacturer-approved parallel topology to confirm.",
       "Confirm parallel communication cable wiring between Inverter 1 and Inverter 2",
       "Confirm phase rotation and master-slave configuration"
     ],
-    ratingProvisional: "50 kW AC Output / Max 1000V DC / 150V-850V Battery Voltage Range",
+    ratingProvisional: "50 kW AC Output / Manufacturer reference—verify the exact installed inverter model",
   },
 
   inv2: {
@@ -150,27 +153,33 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     connectedTo: ["Inverter 2 AC MCCB (mccb2)"],
     protectionRequirement: "Internal AC/DC overcurrent, islanding protection, reverse polarity, thermal protection.",
     toConfirmItems: [
+      "Conceptual connection—manufacturer-approved parallel topology to confirm.",
       "Confirm parallel communication cable wiring between Inverter 1 and Inverter 2",
       "Confirm phase rotation and master-slave configuration"
     ],
-    ratingProvisional: "50 kW AC Output / Max 1000V DC / 150V-850V Battery Voltage Range",
+    ratingProvisional: "50 kW AC Output / Manufacturer reference—verify the exact installed inverter model",
   },
 
   bat_pack1: {
     id: "bat_pack1",
     label: "Battery Pack 1",
-    engineerLabel: "HV Battery Pack 1 (~143.36 kWh)",
-    beginnerLabel: "Energy Storage Pack 1",
+    engineerLabel: "High-Voltage Battery Pack 1—Configuration to Confirm",
+    beginnerLabel: "High-Voltage Battery Pack 1—Configuration to Confirm",
     category: "battery",
     branch: "branch1",
-    subtitle: "High-Voltage LiFePO4 • 512 V Nominal",
+    subtitle: "High-Voltage LiFePO4 • Configuration to Confirm",
     simpleExplanation: "Stores excess solar power and supplies factory critical loads during outages or at night.",
-    engineeringPurpose: "High-voltage lithium iron phosphate (LFP) battery bank supplying energy storage for Inverter 1.",
+    engineeringPurpose: "High-voltage lithium iron phosphate (LFP) battery bank supplying energy storage for Inverter 1. Calculated example (e.g., 10 × 51.2 V modules = 512 V nominal, ~143.36 kWh per pack) is illustrative only. Usable energy cannot be calculated until series configuration, permitted depth of discharge, BMS limits and manufacturer compatibility are confirmed.",
     connectedFrom: ["BMS 1 (bms1)"],
     connectedTo: ["BMS 1 (bms1)", "Battery Breaker 1 (bat_brk1)"],
     protectionRequirement: "Internal cell-level overcharge/overdischarge, thermal management, aerosol fire suppression.",
-    toConfirmItems: ["Exact series cell configuration (e.g. 10 x 51.2V modules)", "Usable Depth of Discharge (DoD) percentage setting"],
-    ratingProvisional: "512 V Nominal / 280 Ah (~143.36 kWh)",
+    toConfirmItems: [
+      "High-Voltage Battery Pack—Configuration to Confirm",
+      "Usable energy cannot be calculated until series configuration, permitted depth of discharge, BMS limits and manufacturer compatibility are confirmed.",
+      "Exact series cell configuration and pack nominal voltage",
+      "Permitted depth of discharge (DoD) percentage setting"
+    ],
+    ratingProvisional: "Rating to be calculated / Configuration to confirm",
   },
 
   bms1: {
@@ -202,26 +211,31 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineeringPurpose: "High-breaking capacity DC MCCB protecting high-voltage battery DC cables against short circuits.",
     connectedFrom: ["Battery Pack 1 (bat_pack1)"],
     connectedTo: ["Inverter 1 Battery Port (inv1)"],
-    protectionRequirement: "2-pole high-voltage DC MCCB with shunt trip wired to BMS emergency stop.",
-    toConfirmItems: ["Confirm breaker short-circuit breaking capacity (kA) exceeds battery peak fault current"],
-    ratingProvisional: "125A - 160A DC MCCB (750V DC / 25kA breaking capacity)",
+    protectionRequirement: "2-pole high-voltage DC MCCB with shunt trip. Rating to be calculated.",
+    toConfirmItems: ["Rating to be calculated", "Breaking capacity to be confirmed"],
+    ratingProvisional: "Rating to be calculated / Breaking capacity to be confirmed",
   },
 
   bat_pack2: {
     id: "bat_pack2",
     label: "Battery Pack 2",
-    engineerLabel: "HV Battery Pack 2 (~143.36 kWh)",
-    beginnerLabel: "Energy Storage Pack 2",
+    engineerLabel: "High-Voltage Battery Pack 2—Configuration to Confirm",
+    beginnerLabel: "High-Voltage Battery Pack 2—Configuration to Confirm",
     category: "battery",
     branch: "branch2",
-    subtitle: "High-Voltage LiFePO4 • 512 V Nominal",
+    subtitle: "High-Voltage LiFePO4 • Configuration to Confirm",
     simpleExplanation: "Stores excess solar power and supplies factory critical loads during outages or at night.",
-    engineeringPurpose: "High-voltage lithium iron phosphate (LFP) battery bank supplying energy storage for Inverter 2.",
+    engineeringPurpose: "High-voltage lithium iron phosphate (LFP) battery bank supplying energy storage for Inverter 2. Calculated example (e.g., 10 × 51.2 V modules = 512 V nominal, ~143.36 kWh per pack) is illustrative only. Usable energy cannot be calculated until series configuration, permitted depth of discharge, BMS limits and manufacturer compatibility are confirmed.",
     connectedFrom: ["BMS 2 (bms2)"],
     connectedTo: ["BMS 2 (bms2)", "Battery Breaker 2 (bat_brk2)"],
     protectionRequirement: "Internal cell-level overcharge/overdischarge, thermal management, aerosol fire suppression.",
-    toConfirmItems: ["Exact series cell configuration (e.g. 10 x 51.2V modules)", "Usable Depth of Discharge (DoD) percentage setting"],
-    ratingProvisional: "512 V Nominal / 280 Ah (~143.36 kWh)",
+    toConfirmItems: [
+      "High-Voltage Battery Pack—Configuration to Confirm",
+      "Usable energy cannot be calculated until series configuration, permitted depth of discharge, BMS limits and manufacturer compatibility are confirmed.",
+      "Exact series cell configuration and pack nominal voltage",
+      "Permitted depth of discharge (DoD) percentage setting"
+    ],
+    ratingProvisional: "Rating to be calculated / Configuration to confirm",
   },
 
   bms2: {
@@ -253,9 +267,9 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineeringPurpose: "High-breaking capacity DC MCCB protecting high-voltage battery DC cables against short circuits.",
     connectedFrom: ["Battery Pack 2 (bat_pack2)"],
     connectedTo: ["Inverter 2 Battery Port (inv2)"],
-    protectionRequirement: "2-pole high-voltage DC MCCB with shunt trip wired to BMS emergency stop.",
-    toConfirmItems: ["Confirm breaker short-circuit breaking capacity (kA) exceeds battery peak fault current"],
-    ratingProvisional: "125A - 160A DC MCCB (750V DC / 25kA breaking capacity)",
+    protectionRequirement: "2-pole high-voltage DC MCCB with shunt trip. Rating to be calculated.",
+    toConfirmItems: ["Rating to be calculated", "Breaking capacity to be confirmed"],
+    ratingProvisional: "Rating to be calculated / Breaking capacity to be confirmed",
   },
 
   mccb1: {
@@ -265,14 +279,14 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     beginnerLabel: "Inverter 1 AC Output Switch",
     category: "ac_prot",
     branch: "branch1",
-    subtitle: "3-Pole / 4-Pole 100A AC MCCB",
+    subtitle: "AC MCCB—Pole configuration to confirm",
     simpleExplanation: "Protects the 3-phase AC output cabling from Inverter 1 to the Solar ACDB.",
     engineeringPurpose: "Dedicated AC circuit breaker for individual isolation and overcurrent protection of Inverter 1.",
     connectedFrom: ["Hybrid Inverter 1 (inv1)"],
     connectedTo: ["Solar ACDB (solar_acdb)"],
-    protectionRequirement: "Thermal-magnetic / electronic overcurrent and short-circuit trip.",
-    toConfirmItems: ["Confirm 3-pole vs 4-pole switching requirements based on earthing scheme"],
-    ratingProvisional: "100A AC MCCB (36kA short circuit rating)",
+    protectionRequirement: "Thermal-magnetic / electronic overcurrent and short-circuit trip. Rating to be calculated.",
+    toConfirmItems: ["Pole configuration to be confirmed based on neutral switching requirements"],
+    ratingProvisional: "Rating to be calculated / Breaking capacity to be confirmed",
   },
 
   mccb2: {
@@ -282,14 +296,14 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     beginnerLabel: "Inverter 2 AC Output Switch",
     category: "ac_prot",
     branch: "branch2",
-    subtitle: "3-Pole / 4-Pole 100A AC MCCB",
+    subtitle: "AC MCCB—Pole configuration to confirm",
     simpleExplanation: "Protects the 3-phase AC output cabling from Inverter 2 to the Solar ACDB.",
     engineeringPurpose: "Dedicated AC circuit breaker for individual isolation and overcurrent protection of Inverter 2.",
     connectedFrom: ["Hybrid Inverter 2 (inv2)"],
     connectedTo: ["Solar ACDB (solar_acdb)"],
-    protectionRequirement: "Thermal-magnetic / electronic overcurrent and short-circuit trip.",
-    toConfirmItems: ["Confirm 3-pole vs 4-pole switching requirements based on earthing scheme"],
-    ratingProvisional: "100A AC MCCB (36kA short circuit rating)",
+    protectionRequirement: "Thermal-magnetic / electronic overcurrent and short-circuit trip. Rating to be calculated.",
+    toConfirmItems: ["Pole configuration to be confirmed based on neutral switching requirements"],
+    ratingProvisional: "Rating to be calculated / Breaking capacity to be confirmed",
   },
 
   solar_acdb: {
@@ -304,9 +318,9 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineeringPurpose: "Busbar assembly paralleling the AC outputs of Inverter 1 and Inverter 2, housing main AC isolator, energy meter, and Type II AC Surge Protection.",
     connectedFrom: ["Inverter 1 AC MCCB (mccb1)", "Inverter 2 AC MCCB (mccb2)"],
     connectedTo: ["Critical Load Bus (crit_bus)"],
-    protectionRequirement: "Main AC MCCB (200A), Type II AC Surge Protection (SPD), digital multi-function meter.",
-    toConfirmItems: ["Confirm total busbar rating (250A minimum)", "Verify CT placement for inverter energy monitoring"],
-    ratingProvisional: "200A 3-Phase AC Busbar Panel",
+    protectionRequirement: "Main AC MCCB, Type II AC Surge Protection (SPD), digital multi-function meter. Rating to be calculated.",
+    toConfirmItems: ["Total busbar rating to be calculated", "Verify CT placement for inverter energy monitoring"],
+    ratingProvisional: "3-Phase AC Busbar Panel (Rating to be calculated)",
   },
 
   grid_supply: {
@@ -338,9 +352,9 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineeringPurpose: "Main electrical service entrance equipped with 3-phase billing meter, main circuit breaker, and grid voltage/frequency monitoring.",
     connectedFrom: ["Grid Utility Supply (grid_supply)"],
     connectedTo: ["Automatic Transfer Switch (ats)"],
-    protectionRequirement: "Main MCCB, AC Type II SPD, CTs for Solis smart meter grid limitation.",
+    protectionRequirement: "Main MCCB, AC Type II SPD, CTs for Solis smart meter grid limitation. Ratings to be calculated.",
     toConfirmItems: ["Verify CT cable distance to Solis inverter meter input"],
-    ratingProvisional: "250A - 400A Main AC MCCB",
+    ratingProvisional: "Main AC MCCB (Rating to be calculated / Breaking capacity to be confirmed)",
   },
 
   gen_supply: {
@@ -357,10 +371,10 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     connectedTo: ["Generator Protection (gen_prot)"],
     protectionRequirement: "Generator circuit breaker, AVR (Automatic Voltage Regulator), auto-start contactor.",
     toConfirmItems: [
-      "Confirm generator capacity (kVA) to prevent reverse power feeding",
+      "Generator capacity to be confirmed from the load schedule",
       "ARCHITECTURE TO BE CONFIRMED: Option A (ATS route) vs Option B (Dedicated Solis GEN port)"
     ],
-    ratingProvisional: "Provisional Standby Generator (~150-200 kVA)",
+    ratingProvisional: "Standby Diesel Generator (Generator capacity to be confirmed from the load schedule)",
   },
 
   gen_prot: {
@@ -375,26 +389,30 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineeringPurpose: "Overcurrent breaker and contactor controlling generator power delivery to the system.",
     connectedFrom: ["Diesel Generator (gen_supply)"],
     connectedTo: ["Automatic Transfer Switch (ats)"],
-    protectionRequirement: "Generator MCCB, reverse power relay, frequency protection.",
+    protectionRequirement: "Generator MCCB, reverse power relay, frequency protection. Rating to be calculated.",
     toConfirmItems: ["Confirm auto-start dry contact signal cable route from inverter/ATS to generator controller"],
-    ratingProvisional: "250A AC MCCB",
+    ratingProvisional: "AC MCCB (Rating to be calculated)",
   },
 
   ats: {
     id: "ats",
-    label: "ATS / Changeover Switch",
-    engineerLabel: "Automatic Transfer Switch (ATS / COS)",
-    beginnerLabel: "Automatic Power Selector (ATS)",
+    label: "ATS / Source Changeover",
+    engineerLabel: "ATS / source changeover—pole configuration to confirm",
+    beginnerLabel: "ATS / source changeover—pole configuration to confirm",
     category: "ats",
     branch: "common",
-    subtitle: "Automatically switches between Grid & Generator",
+    subtitle: "ATS / source changeover—pole configuration to confirm",
     simpleExplanation: "Automatically selects between main grid power and generator power.",
-    engineeringPurpose: "Motorized 4-pole changeover switch selecting between primary Utility Grid and backup Generator power.",
+    engineeringPurpose: "Motorized changeover switch selecting between primary Utility Grid and backup Generator power. ATS / source changeover—pole configuration to confirm.",
     connectedFrom: ["Grid Protection (grid_prot)", "Generator Protection (gen_prot)"],
     connectedTo: ["Normal Load Bus (norm_bus)", "Inverter Grid Input / Bypass Switch"],
-    protectionRequirement: "Electrical & mechanical interlocking preventing simultaneous grid-generator connection.",
-    toConfirmItems: ["Confirm ATS transition delay timing (0-30 seconds adjustable)"],
-    ratingProvisional: "250A - 400A 4-Pole Motorized ATS",
+    protectionRequirement: "Electrical & mechanical interlocking preventing simultaneous grid-generator connection. Pole configuration to be confirmed.",
+    toConfirmItems: [
+      "Pole configuration to be confirmed based on neutral switching requirements",
+      "Neutral switching depends on site earthing arrangement, grid requirements, generator neutral arrangement, inverter operating mode, and responsible electrical-engineer approval",
+      "Confirm ATS transition delay timing"
+    ],
+    ratingProvisional: "Changeover Switch (Rating to be calculated / Pole configuration to be confirmed)",
   },
 
   norm_bus: {
@@ -409,9 +427,9 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineeringPurpose: "Distribution busbar feeding non-essential factory loads (high-power motors, heavy HVAC, external lighting) that do not require battery backup.",
     connectedFrom: ["Automatic Transfer Switch (ats)"],
     connectedTo: ["Non-Essential Machinery Breakers"],
-    protectionRequirement: "Sub-feed MCBs / MCCBs for non-critical branch circuits.",
+    protectionRequirement: "Sub-feed MCBs / MCCBs for non-critical branch circuits. Ratings to be calculated.",
     toConfirmItems: ["Load schedule audit to confirm non-critical power consumption"],
-    ratingProvisional: "250A AC Busbar",
+    ratingProvisional: "AC Busbar (Rating to be calculated)",
   },
 
   bypass_switch: {
@@ -421,14 +439,14 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     engineerLabel: "Interlocked Maintenance Bypass Switch",
     category: "bypass",
     branch: "common",
-    subtitle: "Manual Mechanical Interlocked Bypass",
+    subtitle: "Manual Mechanical Interlocked Bypass—Pole configuration to confirm",
     simpleExplanation: "Allows technicians to bypass solar and batteries to repair equipment without turning off factory power.",
     engineeringPurpose: "Key-interlocked or mechanically interlocked 3-position changeover switch allowing direct grid/ATS supply to Critical Load Bus during inverter servicing.",
     connectedFrom: ["ATS Output (ats)"],
     connectedTo: ["Critical Load Bus (crit_bus)"],
-    protectionRequirement: "Mechanical interlock preventing backfeeding into isolated inverter outputs during maintenance.",
-    toConfirmItems: ["Confirm manual bypass switch lockable enclosure specs"],
-    ratingProvisional: "200A 4-Pole Changeover Switch",
+    protectionRequirement: "Mechanical interlock preventing backfeeding into isolated inverter outputs during maintenance. Pole configuration to be confirmed.",
+    toConfirmItems: ["Confirm manual bypass switch lockable enclosure specs and pole configuration"],
+    ratingProvisional: "Changeover Switch (Rating to be calculated / Pole configuration to be confirmed)",
   },
 
   crit_bus: {
@@ -440,12 +458,12 @@ export const SLD_NODES: Record<string, SLDNodeData> = {
     branch: "common",
     subtitle: "Inverter Backup Bus for Essential Operations",
     simpleExplanation: "Powers vital factory equipment that must never lose power (computers, production lines, security).",
-    engineeringPurpose: "Essential AC distribution bus bar energized continuously by Solar ACDB (or Maintenance Bypass during service). Max 100 kW backup capacity.",
+    engineeringPurpose: "Essential AC distribution bus bar energized continuously by Solar ACDB (or Maintenance Bypass during service). Combined inverter rating 100 kW.",
     connectedFrom: ["Solar ACDB (solar_acdb)", "Maintenance Bypass (bypass_switch)"],
     connectedTo: ["Factory Essential Circuits"],
     protectionRequirement: "Individual branch MCBs with RCD protection for sensitive loads.",
     toConfirmItems: ["Verify motor starting inrush currents do not exceed 100 kW total inverter peak overload limit"],
-    ratingProvisional: "200A Essential AC Distribution Busbar",
+    ratingProvisional: "Essential AC Distribution Busbar (Rating to be calculated)",
   },
 };
 
@@ -458,7 +476,7 @@ export const SLD_CONNECTIONS: SLDConnectionData[] = [
   { id: "bat1_to_bms1", fromNodeId: "bat_pack1", toNodeId: "bms1", label: "HV DC & Comms Telemetry", type: "battery_dc" },
   { id: "bms1_to_bat1", fromNodeId: "bms1", toNodeId: "bat_pack1", label: "Control & Balancing", type: "battery_dc" },
   { id: "bms1_to_brk1", fromNodeId: "bms1", toNodeId: "bat_brk1", label: "Emergency Shunt Trip", type: "battery_dc" },
-  { id: "bat1_to_brk1", fromNodeId: "bat_pack1", toNodeId: "bat_brk1", label: "HV DC Power (~512V)", type: "battery_dc" },
+  { id: "bat1_to_brk1", fromNodeId: "bat_pack1", toNodeId: "bat_brk1", label: "HV DC Power", type: "battery_dc" },
   { id: "brk1_to_inv1", fromNodeId: "bat_brk1", toNodeId: "inv1", label: "Bi-directional Battery DC", type: "battery_dc" },
   { id: "inv1_to_brk1", fromNodeId: "inv1", toNodeId: "bat_brk1", label: "DC Charge Current", type: "battery_dc" },
 
@@ -470,7 +488,7 @@ export const SLD_CONNECTIONS: SLDConnectionData[] = [
   { id: "bat2_to_bms2", fromNodeId: "bat_pack2", toNodeId: "bms2", label: "HV DC & Comms Telemetry", type: "battery_dc" },
   { id: "bms2_to_bat2", fromNodeId: "bms2", toNodeId: "bat_pack2", label: "Control & Balancing", type: "battery_dc" },
   { id: "bms2_to_brk2", fromNodeId: "bms2", toNodeId: "bat_brk2", label: "Emergency Shunt Trip", type: "battery_dc" },
-  { id: "bat2_to_brk2", fromNodeId: "bat_pack2", toNodeId: "bat_brk2", label: "HV DC Power (~512V)", type: "battery_dc" },
+  { id: "bat2_to_brk2", fromNodeId: "bat_pack2", toNodeId: "bat_brk2", label: "HV DC Power", type: "battery_dc" },
   { id: "brk2_to_inv2", fromNodeId: "bat_brk2", toNodeId: "inv2", label: "Bi-directional Battery DC", type: "battery_dc" },
   { id: "inv2_to_brk2", fromNodeId: "inv2", toNodeId: "bat_brk2", label: "DC Charge Current", type: "battery_dc" },
 
@@ -483,8 +501,10 @@ export const SLD_CONNECTIONS: SLDConnectionData[] = [
   { id: "gen_to_prot", fromNodeId: "gen_supply", toNodeId: "gen_prot", label: "Generator Power", type: "gen_ac" },
   { id: "gen_prot_to_ats", fromNodeId: "gen_prot", toNodeId: "ats", label: "Generator Standby Input", type: "gen_ac" },
   { id: "ats_to_norm", fromNodeId: "ats", toNodeId: "norm_bus", label: "Selected AC Power (Grid/Gen)", type: "bus_ac" },
-  { id: "ats_to_inv_grid", fromNodeId: "ats", toNodeId: "inv1", label: "Grid/Gen Reference Input", type: "bus_ac" },
-  { id: "inv_grid_to_acdb", fromNodeId: "inv1", toNodeId: "solar_acdb", label: "Grid Feed-Through", type: "bus_ac" },
+  { id: "ats_to_inv1_grid", fromNodeId: "ats", toNodeId: "inv1", label: "Inverter 1 Grid Port (Grid/Gen)", type: "bus_ac" },
+  { id: "ats_to_inv2_grid", fromNodeId: "ats", toNodeId: "inv2", label: "Inverter 2 Grid Port (Grid/Gen)", type: "bus_ac" },
+  { id: "inv1_grid_to_acdb", fromNodeId: "inv1", toNodeId: "solar_acdb", label: "Conceptual Grid Feed-Through 1", type: "bus_ac" },
+  { id: "inv2_grid_to_acdb", fromNodeId: "inv2", toNodeId: "solar_acdb", label: "Conceptual Grid Feed-Through 2", type: "bus_ac" },
   { id: "ats_to_bypass", fromNodeId: "ats", toNodeId: "bypass_switch", label: "Direct Utility Feed", type: "grid_ac" },
   { id: "bypass_to_crit", fromNodeId: "bypass_switch", toNodeId: "crit_bus", label: "Bypass Service Feed", type: "bus_ac" },
 ];

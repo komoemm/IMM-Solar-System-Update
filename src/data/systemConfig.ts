@@ -1,6 +1,6 @@
 /**
  * System Engineering Specifications & Reference Values
- * System: 120.70 kWp Solar Hybrid System (170 Panels, 2 x 50 kW Inverters, 2 Battery Packs)
+ * System: 120.70 kWp Solar PV + 100 kW Hybrid Inverter System (170 Panels, 2 x 50 kW Inverters, 2 Battery Packs)
  */
 
 export interface PanelSpecs {
@@ -60,8 +60,7 @@ export const SYSTEM_TOTALS = {
   panelsPerInverter: 85,
   pvCapacityPerInverterKwp: 60.35,
   batteryPacksCount: 2,
-  batteryEstimatedNominalVoltageV: 512,
-  batteryEstimatedCapacityKwh: 286.72,
+  batteryStatus: "High-Voltage Battery Pack—Configuration to Confirm",
 };
 
 // Generating full 14-string database
@@ -111,12 +110,12 @@ export const INVERTER_MPPT_MAP: Record<number, MpptConfig[]> = {
 export const ENGINEERING_WARNINGS = [
   {
     title: "Conceptual Learning Diagram Notice",
-    description: "This schematic is a educational logic diagram and does NOT constitute a certified, stamped electrical construction SLD.",
+    description: "This schematic is an educational logic diagram and does NOT constitute a certified, stamped electrical construction SLD.",
     level: "warning",
   },
   {
     title: "Temperature-Corrected PV Voc Verification",
-    description: "STC Voc (579.6 V for 12-panel, 627.9 V for 13-panel) increases in cold ambient temperatures. Maximum cold-temperature string Voc must be calculated against Solis 1000 V DC limit.",
+    description: "Cold-temperature Voc must be calculated using the exact panel Voc temperature coefficient and the minimum design temperature. Manufacturer reference—verify the exact installed inverter model against the Solis 1000 V DC maximum limit.",
     level: "danger",
   },
   {
@@ -131,17 +130,17 @@ export const ENGINEERING_WARNINGS = [
   },
   {
     title: "Inverter Parallel Communication & Phase Sync",
-    description: "Operating two Solis 50 kW hybrid inverters in parallel requires dedicated RS485/CAN parallel communication lines, master-slave configuration, and AC phase synchronization.",
+    description: "Conceptual connection—manufacturer-approved parallel topology to confirm. Operating two Solis 50 kW hybrid inverters in parallel requires dedicated RS485/CAN parallel communication lines, master-slave configuration, and AC phase synchronization.",
     level: "warning",
   },
   {
-    title: "Battery BMS & DC Protection Confirmation",
-    description: "High-voltage battery pack series module count, BMS protocol compatibility with Solis S6, and DC isolator/breaker breaking capacity (kA) require M&E sign-off.",
+    title: "Battery Configuration & Usable Energy Confirmation",
+    description: "High-Voltage Battery Pack—Configuration to Confirm. Usable energy cannot be calculated until series configuration, permitted depth of discharge, BMS limits and manufacturer compatibility are confirmed.",
     level: "warning",
   },
   {
     title: "Earthing & Neutral Switching Alignment",
-    description: "System earthing (TN-S/TN-C-S) and 4-pole switching requirements for off-grid backup transition must conform to local electrical utility safety codes.",
+    description: "ATS / source changeover—pole configuration to confirm. Neutral switching depends on site earthing arrangement, grid requirements, generator neutral arrangement, inverter operating mode, and responsible electrical-engineer approval.",
     level: "warning",
   },
 ];

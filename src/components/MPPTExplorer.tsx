@@ -1,5 +1,6 @@
 import React from "react";
 import { INVERTER_MPPT_MAP, ALL_PV_STRINGS, StringSpec } from "../data/systemConfig";
+import { useModalAccessibility } from "../hooks/useModalAccessibility";
 
 interface MPPTExplorerProps {
   inverterId: 1 | 2;
@@ -12,12 +13,13 @@ export const MPPTExplorer: React.FC<MPPTExplorerProps> = ({
   onClose,
   onSelectString,
 }) => {
+  const modalRef = useModalAccessibility(onClose);
   const mppts = INVERTER_MPPT_MAP[inverterId];
   const inverterStrings = ALL_PV_STRINGS.filter((s) => s.inverterId === inverterId);
 
   return (
     <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="mppt-modal-title">
-      <div className="modal-content mppt-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content mppt-modal" ref={modalRef} tabIndex={-1} onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
             <span className="modal-kicker">Solis 50 kW Hybrid Inverter Architecture</span>

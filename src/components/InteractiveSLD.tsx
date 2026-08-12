@@ -45,7 +45,7 @@ export const InteractiveSLD: React.FC = () => {
           <p className="kicker">
             <span /> Interactive Engineering SLD
           </p>
-          <h2>Factory Single Line Diagram (100 kW Solar + Storage)</h2>
+          <h2>Factory Single Line Diagram (120.70 kWp Solar PV + 100 kW Hybrid Inverter System)</h2>
         </div>
         <p>
           Conceptual schematic detailing Branch 1 (PV1 / Bat1 / Inv1) and Branch 2 (PV2 / Bat2 / Inv2), protection devices, Solar ACDB, ATS, Generator, Maintenance Bypass, and Load distribution.
@@ -178,7 +178,7 @@ export const InteractiveSLD: React.FC = () => {
             {/* BRANCH 1: INVERTER 1 & BATTERY PACK 1 */}
             <div className="diagram-branch-group branch-1-group">
               <div className="branch-label-header">
-                <span>INVERTER 1 BRANCH (60.35 kWp Solar + ~143.36 kWh Battery)</span>
+                <span>INVERTER 1 BRANCH (60.35 kWp Solar + High-Voltage Battery)</span>
               </div>
 
               <div className="branch-nodes-row">
@@ -282,7 +282,7 @@ export const InteractiveSLD: React.FC = () => {
             {/* BRANCH 2: INVERTER 2 & BATTERY PACK 2 */}
             <div className="diagram-branch-group branch-2-group">
               <div className="branch-label-header">
-                <span>INVERTER 2 BRANCH (60.35 kWp Solar + ~143.36 kWh Battery)</span>
+                <span>INVERTER 2 BRANCH (60.35 kWp Solar + High-Voltage Battery)</span>
               </div>
 
               <div className="branch-nodes-row">

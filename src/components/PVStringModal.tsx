@@ -1,5 +1,6 @@
 import React from "react";
 import { StringSpec, PANEL_STC_SPECS } from "../data/systemConfig";
+import { useModalAccessibility } from "../hooks/useModalAccessibility";
 
 interface PVStringModalProps {
   stringSpec: StringSpec;
@@ -7,9 +8,11 @@ interface PVStringModalProps {
 }
 
 export const PVStringModal: React.FC<PVStringModalProps> = ({ stringSpec, onClose }) => {
+  const modalRef = useModalAccessibility(onClose);
+
   return (
     <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="string-modal-title">
-      <div className="modal-content string-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content string-modal" ref={modalRef} tabIndex={-1} onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
             <span className="modal-kicker">PV String Identification</span>
@@ -58,7 +61,7 @@ export const PVStringModal: React.FC<PVStringModalProps> = ({ stringSpec, onClos
           <div>
             <strong>Temperature-Correction Warning</strong>
             <p>
-              In cold ambient conditions, PV module Voc increases according to the panel temperature coefficient (approx -0.26%/°C). The maximum cold-weather Voc of this {stringSpec.panelCount}-panel string ({stringSpec.vocStc} V at 25°C) will rise closer to 700 V. The total combined voltage must never exceed the Solis hybrid inverter 1000 V DC limit.
+              Cold-temperature Voc must be calculated using the exact panel Voc temperature coefficient and the minimum design temperature. Manufacturer reference—verify the exact installed inverter model (Solis hybrid inverter 1000 V DC maximum limit).
             </p>
           </div>
         </div>

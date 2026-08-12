@@ -61,7 +61,7 @@ const details: Record<DetailKey, { number: string; title: string; simple: string
     number: "03",
     title: "Two battery packs",
     simple: "Batteries store spare energy and return it when solar or grid power is unavailable.",
-    engineering: "A possible pack is ten 51.2 V modules in series: 512 V nominal and 143.36 kWh. Two packs total 286.72 kWh.",
+    engineering: "High-voltage lithium battery packs connected to Inverter 1 and Inverter 2. Exact voltage, capacity, and module count to be confirmed.",
     check: "Use an approved high-voltage master BMS, DC protection and communication.",
   },
   switching: {

@@ -120,7 +120,7 @@ export const OPERATING_SCENARIOS: Record<ScenarioKey, OperatingScenario> = {
       "Zero PV generation. Grid feeds Normal Loads via ATS. Grid power also passes through the inverters to power Critical Loads while maintaining Battery Pack state-of-charge at safety reserve limits.",
     activeRoutes: [
       "grid_to_prot", "grid_prot_to_ats", "ats_to_norm",
-      "ats_to_inv_grid", "inv_grid_to_acdb", "acdb_to_crit"
+      "ats_to_inv1_grid", "ats_to_inv2_grid", "inv1_grid_to_acdb", "inv2_grid_to_acdb", "acdb_to_crit"
     ],
     activeNodes: [
       "grid_supply", "grid_prot", "ats", "norm_bus",
@@ -144,8 +144,8 @@ export const OPERATING_SCENARIOS: Record<ScenarioKey, OperatingScenario> = {
     engineerDescription:
       "Generator starts automatically. Generator ATS route energizes the AC bus. Inverters synchronize to generator frequency/voltage, powering Critical Loads and controlling battery charge current to avoid overloading the generator.",
     activeRoutes: [
-      "gen_to_prot", "gen_prot_to_ats", "ats_to_norm", "ats_to_inv_grid",
-      "inv_grid_to_acdb", "acdb_to_crit",
+      "gen_to_prot", "gen_prot_to_ats", "ats_to_norm", "ats_to_inv1_grid", "ats_to_inv2_grid",
+      "inv1_grid_to_acdb", "inv2_grid_to_acdb", "acdb_to_crit",
       "inv1_to_brk1", "brk1_to_bms1", "bms1_to_bat1",
       "inv2_to_brk2", "brk2_to_bms2", "bms2_to_bat2"
     ],

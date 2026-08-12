@@ -1,13 +1,16 @@
 import React from "react";
+import { useModalAccessibility } from "../hooks/useModalAccessibility";
 
 interface GeneratorInfoModalProps {
   onClose: () => void;
 }
 
 export const GeneratorInfoModal: React.FC<GeneratorInfoModalProps> = ({ onClose }) => {
+  const modalRef = useModalAccessibility(onClose);
+
   return (
     <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="gen-modal-title">
-      <div className="modal-content gen-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content gen-modal" ref={modalRef} tabIndex={-1} onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
             <span className="modal-kicker">Architecture to be Confirmed</span>
