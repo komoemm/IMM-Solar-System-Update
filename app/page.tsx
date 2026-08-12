@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { InteractiveSLD } from "../src/components/InteractiveSLD";
+import { EngineeringPlannerContainer } from "../src/components/planner/EngineeringPlannerContainer";
 
 type ModeKey = "solar" | "outage" | "night" | "generator";
 type DetailKey = "pv" | "inverter" | "battery" | "switching" | "loads";
@@ -107,8 +108,8 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a href="#top" className="brand" aria-label="Solar Hybrid Explorer home"><span className="brand-mark">S</span><span>Solar Hybrid<br /><b>System Explorer</b></span></a>
-        <nav aria-label="Page navigation"><a href="#flow">Power flow</a><a href="#strings">170 panels</a><a href="#interactive-sld">Interactive SLD</a></nav>
-        <span className="concept-pill">Learning model</span>
+        <nav aria-label="Page navigation"><a href="#planner">Engineering Planner</a><a href="#flow">Power flow</a><a href="#strings">170 panels</a><a href="#interactive-sld">Interactive SLD</a></nav>
+        <span className="concept-pill">Phase 3 Engineering Tools</span>
       </header>
 
       <section className="hero" id="top">
@@ -122,6 +123,27 @@ export default function Home() {
           <div className="sun-disc"><span>170</span><small>PV panels</small></div>
           <div className="summary-grid"><div><b>120.70</b><span>kWp solar</span></div><div><b>2 × 50</b><span>kW inverter</span></div><div><b>14</b><span>PV strings</span></div><div><b>2</b><span>battery packs</span></div></div>
           <p>Assumption: all 170 panels are identical 710 W modules.</p>
+        </div>
+      </section>
+
+      {/* PHASE 3: INTERACTIVE ENGINEERING PLANNING AND CALCULATION TOOLS */}
+      <section className="section planner-section py-10 px-4 sm:px-8 bg-slate-950/40 border-y border-slate-800" id="planner">
+        <div className="max-w-7xl mx-auto space-y-6">
+          <div className="section-heading border-b border-slate-800 pb-4">
+            <div>
+              <p className="kicker">
+                <span /> Phase 3 Interactive Engineering Planning Suite
+              </p>
+              <h2 className="text-2xl font-black text-slate-100">
+                Solar Hybrid System Explorer — Interactive Engineering Planner
+              </h2>
+            </div>
+            <p className="text-sm text-slate-400">
+              Explore possible system configurations, string topologies, load schedules, battery runtimes, and generator screening options while clearly maintaining strict distinction between confirmed specifications and calculated estimates.
+            </p>
+          </div>
+
+          <EngineeringPlannerContainer />
         </div>
       </section>
 
