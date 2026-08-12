@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import { usePlannerScenario } from "../../hooks/usePlannerScenario";
-import { SystemInputs } from "./SystemInputs";
-import { PVStringValidator } from "./PVStringValidator";
-import { ColdVocCalculator } from "./ColdVocCalculator";
-import { LoadSchedule } from "./LoadSchedule";
-import { BatteryRuntimeEstimator } from "./BatteryRuntimeEstimator";
-import { GeneratorEstimator } from "./GeneratorEstimator";
-import { EngineeringReviewSummary } from "./EngineeringReviewSummary";
 import { PrintableReport } from "./PrintableReport";
 import { StatusBadge } from "./StatusBadge";
+
+const SystemInputs = lazy(() => import("./SystemInputs").then((m) => ({ default: m.SystemInputs })));
+const PVStringValidator = lazy(() => import("./PVStringValidator").then((m) => ({ default: m.PVStringValidator })));
+const ColdVocCalculator = lazy(() => import("./ColdVocCalculator").then((m) => ({ default: m.ColdVocCalculator })));
+const LoadSchedule = lazy(() => import("./LoadSchedule").then((m) => ({ default: m.LoadSchedule })));
+const BatteryRuntimeEstimator = lazy(() => import("./BatteryRuntimeEstimator").then((m) => ({ default: m.BatteryRuntimeEstimator })));
+const GeneratorEstimator = lazy(() => import("./GeneratorEstimator").then((m) => ({ default: m.GeneratorEstimator })));
+const EngineeringReviewSummary = lazy(() => import("./EngineeringReviewSummary").then((m) => ({ default: m.EngineeringReviewSummary })));
 
 export type StepId = "inputs" | "pv" | "coldvoc" | "load" | "battery" | "generator" | "review" | "report";
 
@@ -27,6 +28,22 @@ const STEPS: StepConfig[] = [
   { id: "generator", label: "5. Generator Screening", shortLabel: "5. Generator" },
   { id: "review", label: "6. Engineering Audit Summary", shortLabel: "6. Summary" },
 ];
+
+const StepLoadingSkeleton: React.FC = () => (
+  <div className="animate-pulse space-y-4 p-6 bg-slate-900 rounded-xl border border-slate-800">
+    <div className="flex items-center justify-between">
+      <div className="h-6 bg-slate-800 rounded w-1/3"></div>
+      <div className="h-4 bg-slate-800 rounded w-1/6"></div>
+    </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+      <div className="h-24 bg-slate-800/80 rounded-xl border border-slate-700/50"></div>
+      <div className="h-24 bg-slate-800/80 rounded-xl border border-slate-700/50"></div>
+      <div className="h-24 bg-slate-800/80 rounded-xl border border-slate-700/50"></div>
+      <div className="h-24 bg-slate-800/80 rounded-xl border border-slate-700/50"></div>
+    </div>
+    <div className="h-48 bg-slate-800/60 rounded-xl border border-slate-700/30"></div>
+  </div>
+);
 
 export const EngineeringPlannerContainer: React.FC = () => {
   const {
@@ -50,6 +67,19 @@ export const EngineeringPlannerContainer: React.FC = () => {
 
   return (
     <div className="space-y-6 bg-slate-950 text-slate-100 min-h-screen p-4 sm:p-6 rounded-2xl border border-slate-900 shadow-xl">
+      {/* Planner Section Header */}
+      <div className="border-b border-slate-800/80 pb-3">
+        <p className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-1">
+          Interactive Engineering Suite
+        </p>
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-100">
+          Solar Hybrid System Engineering Planner
+        </h2>
+        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          PV array topology validation, temperature-adjusted Voc calculations, critical load sizing, and battery runtime estimation.
+        </p>
+      </div>
+
       {/* Scenario Governance Bar */}
       <div className="bg-slate-900 text-slate-100 p-4 rounded-xl border border-slate-800 shadow-md flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
@@ -109,14 +139,22 @@ export const EngineeringPlannerContainer: React.FC = () => {
       </div>
 
       {/* Navigation Step Tabs */}
-      <nav className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 border-b border-slate-800" aria-label="Planner steps">
+      <nav
+        className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 border-b border-slate-800"
+        role="tablist"
+        aria-label="Planner steps"
+      >
         {STEPS.map((step) => {
           const isActive = activeStep === step.id;
           return (
             <button
               key={step.id}
+              id={`step-tab-${step.id}`}
+              role="tab"
+              aria-selected={isActive}
+              aria-controls={`step-panel-${step.id}`}
               onClick={() => setActiveStep(step.id)}
-              className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+              className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-400 ${
                 isActive
                   ? "bg-emerald-500 text-slate-950 font-bold shadow-md"
                   : "bg-slate-800/90 text-slate-200 hover:bg-slate-700 hover:text-white border border-slate-700/60"
@@ -130,24 +168,32 @@ export const EngineeringPlannerContainer: React.FC = () => {
       </nav>
 
       {/* Step Views */}
-      {activeStep === "inputs" && <SystemInputs scenario={workingScenario} onChange={setWorkingScenario} />}
-      {activeStep === "pv" && <PVStringValidator scenario={workingScenario} onChange={setWorkingScenario} />}
-      {activeStep === "coldvoc" && <ColdVocCalculator scenario={workingScenario} onChange={setWorkingScenario} />}
-      {activeStep === "load" && <LoadSchedule scenario={workingScenario} onChange={setWorkingScenario} />}
-      {activeStep === "battery" && <BatteryRuntimeEstimator scenario={workingScenario} onChange={setWorkingScenario} />}
-      {activeStep === "generator" && <GeneratorEstimator scenario={workingScenario} onChange={setWorkingScenario} />}
-      {activeStep === "review" && (
-        <EngineeringReviewSummary
-          scenario={workingScenario}
-          onSelectStep={(step) => setActiveStep(step as StepId)}
-          onResetToBaseline={resetToBaseline}
-          onExportJson={exportScenarioJson}
-          onImportJson={(jsonStr) => {
-            const res = importScenarioJson(jsonStr);
-            alert(res.message);
-          }}
-        />
-      )}
+      <div
+        role="tabpanel"
+        id={`step-panel-${activeStep}`}
+        aria-labelledby={`step-tab-${activeStep}`}
+      >
+        <Suspense fallback={<StepLoadingSkeleton />}>
+          {activeStep === "inputs" && <SystemInputs scenario={workingScenario} onChange={setWorkingScenario} />}
+          {activeStep === "pv" && <PVStringValidator scenario={workingScenario} onChange={setWorkingScenario} />}
+          {activeStep === "coldvoc" && <ColdVocCalculator scenario={workingScenario} onChange={setWorkingScenario} />}
+          {activeStep === "load" && <LoadSchedule scenario={workingScenario} onChange={setWorkingScenario} />}
+          {activeStep === "battery" && <BatteryRuntimeEstimator scenario={workingScenario} onChange={setWorkingScenario} />}
+          {activeStep === "generator" && <GeneratorEstimator scenario={workingScenario} onChange={setWorkingScenario} />}
+          {activeStep === "review" && (
+            <EngineeringReviewSummary
+              scenario={workingScenario}
+              onSelectStep={(step) => setActiveStep(step as StepId)}
+              onResetToBaseline={resetToBaseline}
+              onExportJson={exportScenarioJson}
+              onImportJson={(jsonStr) => {
+                const res = importScenarioJson(jsonStr);
+                alert(res.message);
+              }}
+            />
+          )}
+        </Suspense>
+      </div>
     </div>
   );
 };
