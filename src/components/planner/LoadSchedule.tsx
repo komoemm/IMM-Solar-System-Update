@@ -226,54 +226,54 @@ export const LoadSchedule: React.FC<LoadScheduleProps> = ({ scenario, onChange }
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Critical Running Demand</span>
-          <div className="text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">
+        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xs">
+          <span className="text-xs font-semibold text-slate-400">Critical Running Demand</span>
+          <div className="text-2xl font-black text-amber-400 mt-1">
             {summary.criticalRunningKw.toFixed(2)} kW
           </div>
-          <span className="text-xs text-slate-500 mt-0.5 block">
+          <span className="text-xs text-slate-400 mt-0.5 block">
             {summary.criticalRunningKva.toFixed(2)} kVA | {summary.criticalDailyKwh.toFixed(1)} kWh/day
           </span>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Inverter Loading Level</span>
+        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xs">
+          <span className="text-xs font-semibold text-slate-400">Inverter Loading Level</span>
           <div
             className={`text-2xl font-black mt-1 ${
               summary.inverterLoadingPercent > 100
-                ? "text-rose-600"
+                ? "text-rose-400"
                 : summary.inverterLoadingPercent > 85
-                ? "text-amber-600"
-                : "text-emerald-600"
+                ? "text-amber-400"
+                : "text-emerald-400"
             }`}
           >
             {summary.inverterLoadingPercent.toFixed(1)}%
           </div>
-          <span className="text-xs text-slate-500 mt-0.5 block">
+          <span className="text-xs text-slate-400 mt-0.5 block">
             {summary.criticalRunningKw.toFixed(1)} kW of {totalInverterKw} kW Inverter Output
           </span>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Phase Power Imbalance</span>
+        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xs">
+          <span className="text-xs font-semibold text-slate-400">Phase Power Imbalance</span>
           <div
             className={`text-xl font-bold mt-1 ${
-              summary.phaseImbalancePercent > 20 ? "text-amber-600" : "text-emerald-600"
+              summary.phaseImbalancePercent > 20 ? "text-amber-400" : "text-emerald-400"
             }`}
           >
             {summary.phaseImbalancePercent.toFixed(1)}%
           </div>
-          <span className="text-xs text-slate-500 mt-0.5 block">
+          <span className="text-xs text-slate-400 mt-0.5 block">
             L1: {summary.phaseL1Kw.toFixed(1)}kW | L2: {summary.phaseL2Kw.toFixed(1)}kW | L3: {summary.phaseL3Kw.toFixed(1)}kW
           </span>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Total Plant Connected Load</span>
-          <div className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1">
+        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xs">
+          <span className="text-xs font-semibold text-slate-400">Total Plant Connected Load</span>
+          <div className="text-xl font-bold text-slate-100 mt-1">
             {summary.totalConnectedKw.toFixed(2)} kW
           </div>
-          <span className="text-xs text-slate-500 mt-0.5 block">
+          <span className="text-xs text-slate-400 mt-0.5 block">
             Running Total (Incl. Non-Critical): {summary.totalRunningKw.toFixed(1)} kW
           </span>
         </div>
@@ -293,28 +293,28 @@ export const LoadSchedule: React.FC<LoadScheduleProps> = ({ scenario, onChange }
       )}
 
       {/* Filter Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
-        <span className="text-xs font-bold text-slate-500">Filter View:</span>
+      <div className="flex items-center gap-2 border-b border-slate-800 pb-2 overflow-x-auto no-scrollbar">
+        <span className="text-xs font-bold text-slate-400">Filter View:</span>
         <button
           onClick={() => setFilterMode("ALL")}
-          className={`px-3 py-1 text-xs rounded-lg font-semibold transition-colors ${
-            filterMode === "ALL" ? "bg-emerald-600 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+          className={`px-3 py-1.5 text-xs rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+            filterMode === "ALL" ? "bg-emerald-600 text-white font-semibold" : "bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-white border border-slate-700"
           }`}
         >
           All Loads ({scenario.loads.length})
         </button>
         <button
           onClick={() => setFilterMode("CRITICAL")}
-          className={`px-3 py-1 text-xs rounded-lg font-semibold transition-colors ${
-            filterMode === "CRITICAL" ? "bg-amber-600 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+          className={`px-3 py-1.5 text-xs rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+            filterMode === "CRITICAL" ? "bg-amber-600 text-white font-semibold" : "bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-white border border-slate-700"
           }`}
         >
           Critical Backup Loads ({scenario.loads.filter((l) => l.isCritical).length})
         </button>
         <button
           onClick={() => setFilterMode("NON_CRITICAL")}
-          className={`px-3 py-1 text-xs rounded-lg font-semibold transition-colors ${
-            filterMode === "NON_CRITICAL" ? "bg-slate-600 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+          className={`px-3 py-1.5 text-xs rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+            filterMode === "NON_CRITICAL" ? "bg-slate-700 text-white font-semibold" : "bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-white border border-slate-700"
           }`}
         >
           Non-Critical Loads ({scenario.loads.filter((l) => !l.isCritical).length})
@@ -322,10 +322,10 @@ export const LoadSchedule: React.FC<LoadScheduleProps> = ({ scenario, onChange }
       </div>
 
       {/* Load Schedule Table */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xs">
+      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+            <thead className="bg-slate-800 text-slate-300 font-semibold border-b border-slate-700">
               <tr>
                 <th className="p-2.5">ID & Name</th>
                 <th className="p-2.5">Category</th>
@@ -340,68 +340,68 @@ export const LoadSchedule: React.FC<LoadScheduleProps> = ({ scenario, onChange }
                 <th className="p-2.5">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-800">
               {filteredLoads.map((item) => {
                 const calc = calculateLoadItem(item);
 
                 return (
-                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <tr key={item.id} className="hover:bg-slate-800/40">
                     <td className="p-2.5 min-w-[160px]">
                       <input
                         type="text"
-                        className="w-full px-1.5 py-1 text-xs border rounded dark:bg-slate-800 dark:text-slate-100 font-bold"
+                        className="w-full px-2 py-1 text-xs border rounded-md bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none font-bold"
                         value={item.name}
                         onChange={(e) => handleUpdateItem(item.id, "name", e.target.value)}
                       />
-                      <span className="text-[10px] text-slate-400 block">{item.id}</span>
+                      <span className="text-[10px] text-slate-400 block mt-0.5">{item.id}</span>
                     </td>
                     <td className="p-2.5">
                       <select
-                        className="px-1.5 py-1 border rounded text-xs dark:bg-slate-800 dark:text-slate-100"
+                        className="px-2 py-1 border rounded-md text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none"
                         value={item.category}
                         onChange={(e) => handleUpdateItem(item.id, "category", e.target.value as LoadCategory)}
                       >
-                        <option value="Lighting">Lighting</option>
-                        <option value="HVAC">HVAC</option>
-                        <option value="Motors & Pumps">Motors & Pumps</option>
-                        <option value="IT & Security">IT & Security</option>
-                        <option value="Process Machinery">Process Machinery</option>
-                        <option value="General Power">General Power</option>
-                        <option value="Other">Other</option>
+                        <option value="Lighting" className="bg-slate-800 text-slate-100">Lighting</option>
+                        <option value="HVAC" className="bg-slate-800 text-slate-100">HVAC</option>
+                        <option value="Motors & Pumps" className="bg-slate-800 text-slate-100">Motors & Pumps</option>
+                        <option value="IT & Security" className="bg-slate-800 text-slate-100">IT & Security</option>
+                        <option value="Process Machinery" className="bg-slate-800 text-slate-100">Process Machinery</option>
+                        <option value="General Power" className="bg-slate-800 text-slate-100">General Power</option>
+                        <option value="Other" className="bg-slate-800 text-slate-100">Other</option>
                       </select>
                     </td>
                     <td className="p-2.5">
                       <input
                         type="checkbox"
-                        className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500"
+                        className="w-4 h-4 rounded text-emerald-500 bg-slate-800 border-slate-600 focus:ring-emerald-500 focus:ring-offset-slate-900"
                         checked={item.isCritical}
                         onChange={(e) => handleUpdateItem(item.id, "isCritical", e.target.checked)}
                       />
                     </td>
                     <td className="p-2.5">
                       <select
-                        className="px-1.5 py-1 border rounded text-xs dark:bg-slate-800 dark:text-slate-100"
+                        className="px-2 py-1 border rounded-md text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none"
                         value={item.phase}
                         onChange={(e) => handleUpdateItem(item.id, "phase", e.target.value as LoadPhase)}
                       >
-                        <option value="Three-phase">3-Phase</option>
-                        <option value="L1">L1</option>
-                        <option value="L2">L2</option>
-                        <option value="L3">L3</option>
+                        <option value="Three-phase" className="bg-slate-800 text-slate-100">3-Phase</option>
+                        <option value="L1" className="bg-slate-800 text-slate-100">L1</option>
+                        <option value="L2" className="bg-slate-800 text-slate-100">L2</option>
+                        <option value="L3" className="bg-slate-800 text-slate-100">L3</option>
                       </select>
                     </td>
                     <td className="p-2.5 whitespace-nowrap">
                       <input
                         type="number"
-                        className="w-10 px-1 py-0.5 border rounded text-xs dark:bg-slate-800"
+                        className="w-10 px-1 py-0.5 border rounded-md text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none"
                         value={item.quantity}
                         onChange={(e) => handleUpdateItem(item.id, "quantity", parseInt(e.target.value) || 0)}
                       />
-                      <span className="mx-1">×</span>
+                      <span className="mx-1 text-slate-400">×</span>
                       <input
                         type="number"
                         step="0.5"
-                        className="w-14 px-1 py-0.5 border rounded text-xs dark:bg-slate-800"
+                        className="w-14 px-1 py-0.5 border rounded-md text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none"
                         value={item.ratedKw}
                         onChange={(e) => handleUpdateItem(item.id, "ratedKw", parseFloat(e.target.value) || 0)}
                       />
@@ -413,7 +413,7 @@ export const LoadSchedule: React.FC<LoadScheduleProps> = ({ scenario, onChange }
                         step="0.05"
                         min="0.5"
                         max="1.0"
-                        className="w-12 px-1 py-0.5 border rounded text-xs dark:bg-slate-800"
+                        className="w-12 px-1 py-0.5 border rounded-md text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none"
                         value={item.powerFactor}
                         onChange={(e) => handleUpdateItem(item.id, "powerFactor", parseFloat(e.target.value) || 0.85)}
                       />
@@ -422,15 +422,15 @@ export const LoadSchedule: React.FC<LoadScheduleProps> = ({ scenario, onChange }
                       <input
                         type="number"
                         step="0.05"
-                        className="w-12 px-1 py-0.5 border rounded text-xs dark:bg-slate-800"
+                        className="w-12 px-1 py-0.5 border rounded-md text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none"
                         value={item.dutyFactor}
                         onChange={(e) => handleUpdateItem(item.id, "dutyFactor", parseFloat(e.target.value) || 0.8)}
                       />
-                      <span className="mx-0.5">/</span>
+                      <span className="mx-0.5 text-slate-400">/</span>
                       <input
                         type="number"
                         step="0.05"
-                        className="w-12 px-1 py-0.5 border rounded text-xs dark:bg-slate-800"
+                        className="w-12 px-1 py-0.5 border rounded-md text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none"
                         value={item.diversityFactor}
                         onChange={(e) => handleUpdateItem(item.id, "diversityFactor", parseFloat(e.target.value) || 0.9)}
                       />
@@ -440,28 +440,28 @@ export const LoadSchedule: React.FC<LoadScheduleProps> = ({ scenario, onChange }
                         type="number"
                         step="1"
                         max="24"
-                        className="w-12 px-1 py-0.5 border rounded text-xs dark:bg-slate-800"
+                        className="w-12 px-1 py-0.5 border rounded-md text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:outline-none"
                         value={item.operatingHoursPerDay}
                         onChange={(e) => handleUpdateItem(item.id, "operatingHoursPerDay", parseFloat(e.target.value) || 0)}
                       />
                     </td>
-                    <td className="p-2.5 font-bold text-amber-600 dark:text-amber-400">
+                    <td className="p-2.5 font-bold text-amber-400">
                       {calc.runningKw.toFixed(2)} kW
                     </td>
-                    <td className="p-2.5 font-semibold text-slate-800 dark:text-slate-200">
+                    <td className="p-2.5 font-semibold text-slate-200">
                       {calc.dailyKwh.toFixed(1)} kWh
                     </td>
                     <td className="p-2.5">
                       <div className="flex items-center gap-1.5">
                         <button
                           onClick={() => handleDuplicateItem(item)}
-                          className="text-slate-500 hover:text-emerald-600 text-[11px] font-medium underline"
+                          className="text-slate-300 hover:text-emerald-400 text-[11px] font-medium underline transition-colors"
                         >
                           Copy
                         </button>
                         <button
                           onClick={() => handleDeleteItem(item.id, item.name)}
-                          className="text-rose-600 hover:text-rose-800 text-[11px] font-medium underline"
+                          className="text-rose-400 hover:text-rose-300 text-[11px] font-medium underline transition-colors"
                         >
                           Del
                         </button>

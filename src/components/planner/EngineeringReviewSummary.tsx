@@ -134,52 +134,52 @@ export const EngineeringReviewSummary: React.FC<EngineeringReviewSummaryProps> =
 
       {/* Primary Status Banner */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <span className="text-xs font-semibold text-slate-500">Blocking Errors</span>
-          <div className={`text-2xl font-black mt-1 ${blockingErrors.length > 0 ? "text-rose-600" : "text-emerald-600"}`}>
+        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xs">
+          <span className="text-xs font-semibold text-slate-400">Blocking Errors</span>
+          <div className={`text-2xl font-black mt-1 ${blockingErrors.length > 0 ? "text-rose-400" : "text-emerald-400"}`}>
             {blockingErrors.length}
           </div>
-          <span className="text-xs text-slate-500 mt-0.5 block">Equipment risk / rule breaches</span>
+          <span className="text-xs text-slate-400 mt-0.5 block">Equipment risk / rule breaches</span>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <span className="text-xs font-semibold text-slate-500">Engineering Warnings</span>
-          <div className={`text-2xl font-black mt-1 ${warnings.length > 0 ? "text-amber-600" : "text-emerald-600"}`}>
+        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xs">
+          <span className="text-xs font-semibold text-slate-400">Engineering Warnings</span>
+          <div className={`text-2xl font-black mt-1 ${warnings.length > 0 ? "text-amber-400" : "text-emerald-400"}`}>
             {warnings.length}
           </div>
-          <span className="text-xs text-slate-500 mt-0.5 block">Operational & capacity checks</span>
+          <span className="text-xs text-slate-400 mt-0.5 block">Operational & capacity checks</span>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <span className="text-xs font-semibold text-slate-500">Engineer Sign-Off Actions</span>
-          <div className="text-2xl font-black text-purple-600 dark:text-purple-400 mt-1">
+        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xs">
+          <span className="text-xs font-semibold text-slate-400">Engineer Sign-Off Actions</span>
+          <div className="text-2xl font-black text-purple-400 mt-1">
             {engineerRequired.length}
           </div>
-          <span className="text-xs text-slate-500 mt-0.5 block">Confirmation required by M&E</span>
+          <span className="text-xs text-slate-400 mt-0.5 block">Confirmation required by M&E</span>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-          <span className="text-xs font-semibold text-slate-500">System Baseline Status</span>
+        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xs">
+          <span className="text-xs font-semibold text-slate-400">System Baseline Status</span>
           <div className="mt-2">
             <StatusBadge status={scenario.isBaseline ? "CONFIRMED SPECIFICATION" : "USER INPUT"} size="md" />
           </div>
-          <span className="text-xs text-slate-500 mt-1 block">
+          <span className="text-xs text-slate-400 mt-1 block">
             {scenario.isBaseline ? "120.70 kWp Verified Baseline" : "Modified Working Scenario"}
           </span>
         </div>
       </div>
 
       {/* System Parameter Audit Table */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xs">
-        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-          <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200">
+      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-xs">
+        <div className="p-4 bg-slate-800 border-b border-slate-700">
+          <h4 className="font-bold text-sm text-slate-100">
             System Specification Audit Matrix
           </h4>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+            <thead className="bg-slate-800 text-slate-300 font-semibold border-b border-slate-700">
               <tr>
                 <th className="p-3">Parameter Group</th>
                 <th className="p-3">Specification / Value</th>
@@ -187,36 +187,36 @@ export const EngineeringReviewSummary: React.FC<EngineeringReviewSummaryProps> =
                 <th className="p-3">Engineering Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-              <tr>
-                <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">PV Array Capacity</td>
+            <tbody className="divide-y divide-slate-800 text-slate-100">
+              <tr className="hover:bg-slate-800/40">
+                <td className="p-3 font-semibold text-slate-100">PV Array Capacity</td>
                 <td className="p-3">{((scenario.panelSpecs.quantity ?? 170) * (scenario.panelSpecs.wattage ?? 710) / 1000).toFixed(2)} kWp ({scenario.panelSpecs.quantity} × {scenario.panelSpecs.wattage}W)</td>
                 <td className="p-3"><StatusBadge status={scenario.panelSpecs.status} /></td>
-                <td className="p-3 text-slate-500"><button onClick={() => onSelectStep("pv")} className="hover:underline text-emerald-600">Review Strings</button></td>
+                <td className="p-3 text-slate-400"><button onClick={() => onSelectStep("pv")} className="hover:underline text-emerald-400 font-medium">Review Strings</button></td>
               </tr>
-              <tr>
-                <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">Inverter Capacity</td>
+              <tr className="hover:bg-slate-800/40">
+                <td className="p-3 font-semibold text-slate-100">Inverter Capacity</td>
                 <td className="p-3">{scenario.inverterSpecs.quantity} × {scenario.inverterSpecs.ratedAcPowerKw} kW ({totalInverterKw} kW Total AC)</td>
                 <td className="p-3"><StatusBadge status={scenario.inverterSpecs.status} /></td>
-                <td className="p-3 text-slate-500"><button onClick={() => onSelectStep("inputs")} className="hover:underline text-emerald-600">Edit Inverter</button></td>
+                <td className="p-3 text-slate-400"><button onClick={() => onSelectStep("inputs")} className="hover:underline text-emerald-400 font-medium">Edit Inverter</button></td>
               </tr>
-              <tr>
-                <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">Critical Running Demand</td>
+              <tr className="hover:bg-slate-800/40">
+                <td className="p-3 font-semibold text-slate-100">Critical Running Demand</td>
                 <td className="p-3">{loadSummary.criticalRunningKw.toFixed(2)} kW ({loadSummary.inverterLoadingPercent.toFixed(1)}% Inverter Load)</td>
                 <td className="p-3"><StatusBadge status="CALCULATED ESTIMATE" /></td>
-                <td className="p-3 text-slate-500"><button onClick={() => onSelectStep("load")} className="hover:underline text-emerald-600">View Schedule</button></td>
+                <td className="p-3 text-slate-400"><button onClick={() => onSelectStep("load")} className="hover:underline text-emerald-400 font-medium">View Schedule</button></td>
               </tr>
-              <tr>
-                <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">Battery Storage Bank</td>
+              <tr className="hover:bg-slate-800/40">
+                <td className="p-3 font-semibold text-slate-100">Battery Storage Bank</td>
                 <td className="p-3">{batteryRuntime.canCalculate ? `${batteryRuntime.totalNominalKwh?.toFixed(1)} kWh (${batteryRuntime.runtimeAvgHoursFormatted} Avg)` : "To Confirm"}</td>
                 <td className="p-3"><StatusBadge status={scenario.batterySpecs.status} /></td>
-                <td className="p-3 text-slate-500"><button onClick={() => onSelectStep("battery")} className="hover:underline text-emerald-600">Edit Battery</button></td>
+                <td className="p-3 text-slate-400"><button onClick={() => onSelectStep("battery")} className="hover:underline text-emerald-400 font-medium">Edit Battery</button></td>
               </tr>
-              <tr>
-                <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">Generator Infrastructure</td>
+              <tr className="hover:bg-slate-800/40">
+                <td className="p-3 font-semibold text-slate-100">Generator Infrastructure</td>
                 <td className="p-3">{genScreening.selectedGenKva !== null ? `${genScreening.selectedGenKva} kVA (${genScreening.architecture})` : "To Confirm"}</td>
                 <td className="p-3"><StatusBadge status={scenario.gridAndGen.status} /></td>
-                <td className="p-3 text-slate-500"><button onClick={() => onSelectStep("generator")} className="hover:underline text-emerald-600">Edit Generator</button></td>
+                <td className="p-3 text-slate-400"><button onClick={() => onSelectStep("generator")} className="hover:underline text-emerald-400 font-medium">Edit Generator</button></td>
               </tr>
             </tbody>
           </table>

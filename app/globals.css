@@ -6,13 +6,21 @@ html { scroll-behavior:smooth; }
 body { margin:0; background:var(--cream); color:var(--ink); font-family:Arial,Helvetica,sans-serif; }
 button,a { font:inherit; } button { color:inherit; } a { color:inherit; text-decoration:none; }
 
-.site-header { height:82px; padding:0 clamp(24px,5vw,72px); display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(21,39,36,.12); position:sticky; top:0; z-index:20; background:rgba(246,245,236,.92); backdrop-filter:blur(14px); }
-.brand { display:flex; align-items:center; gap:11px; text-transform:uppercase; letter-spacing:.08em; font-size:9px; line-height:1.35; }
-.brand b { font-size:12px; }
-.brand-mark { width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:var(--green-dark); color:var(--lime); font-family:Georgia,serif; font-size:20px; font-weight:bold; }
+.site-header { height:82px; padding:0 clamp(24px,5vw,72px); display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(51,65,85,0.8); position:sticky; top:0; z-index:20; background:rgba(2,6,23,0.95); backdrop-filter:blur(14px); color:#f8fafc; }
+.site-header a.brand { color:#f8fafc; }
 .site-header nav { display:flex; gap:34px; font-size:13px; font-weight:700; }
-.site-header nav a:hover { color:var(--green); }
-.concept-pill { padding:8px 13px; border:1px solid var(--line); border-radius:100px; font-size:11px; color:var(--muted); }
+.site-header nav a { color:#cbd5e1; transition:color 0.2s ease; }
+.site-header nav a:hover { color:#34d399; }
+.concept-pill { padding:8px 13px; border:1px solid #475569; border-radius:100px; font-size:11px; color:#cbd5e1; background:#0f172a; }
+
+/* Hide scrollbar utility for tab navigation */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 .hero { min-height:650px; padding:80px clamp(24px,7vw,110px) 90px; display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:clamp(50px,8vw,130px); position:relative; overflow:hidden; }
 .hero::after { content:""; position:absolute; width:520px; height:520px; border:1px solid rgba(31,138,91,.13); border-radius:50%; right:-250px; top:35px; box-shadow:0 0 0 70px rgba(31,138,91,.025),0 0 0 150px rgba(31,138,91,.02); pointer-events:none; }

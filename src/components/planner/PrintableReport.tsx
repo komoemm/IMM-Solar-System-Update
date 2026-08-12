@@ -23,12 +23,12 @@ export const PrintableReport: React.FC<PrintableReportProps> = ({ scenario, onBa
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-slate-950 p-4 sm:p-8 print:p-0 print:bg-white text-slate-900">
+    <div className="min-h-screen bg-slate-950 p-4 sm:p-8 print:p-0 print:bg-white text-slate-100 print:text-slate-900">
       {/* Screen Controls (Hidden during print) */}
       <div className="max-w-5xl mx-auto mb-6 flex items-center justify-between print:hidden">
         <button
           onClick={onBack}
-          className="px-4 py-2 bg-slate-800 text-white text-xs font-bold rounded-lg hover:bg-slate-700 transition-colors"
+          className="px-4 py-2 bg-slate-800 text-slate-200 hover:text-white text-xs font-bold rounded-lg hover:bg-slate-700 transition-colors border border-slate-700"
         >
           ← Return to Interactive Explorer
         </button>
