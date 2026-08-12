@@ -12,6 +12,22 @@ import { StatusBadge } from "./StatusBadge";
 
 export type StepId = "inputs" | "pv" | "coldvoc" | "load" | "battery" | "generator" | "review" | "report";
 
+interface StepConfig {
+  id: StepId;
+  label: string;
+  shortLabel: string;
+}
+
+const STEPS: StepConfig[] = [
+  { id: "inputs", label: "1. System Inputs", shortLabel: "1. Inputs" },
+  { id: "pv", label: "2. PV Topology Validator", shortLabel: "2. PV Strings" },
+  { id: "coldvoc", label: "2B. Cold Voc Calculator", shortLabel: "2B. Cold Voc" },
+  { id: "load", label: "3. Load Schedule", shortLabel: "3. Loads" },
+  { id: "battery", label: "4. Battery Runtime", shortLabel: "4. Battery" },
+  { id: "generator", label: "5. Generator Screening", shortLabel: "5. Generator" },
+  { id: "review", label: "6. Engineering Audit Summary", shortLabel: "6. Summary" },
+];
+
 export const EngineeringPlannerContainer: React.FC = () => {
   const {
     workingScenario,
@@ -33,14 +49,14 @@ export const EngineeringPlannerContainer: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-slate-950 text-slate-100 min-h-screen p-4 sm:p-6 rounded-2xl border border-slate-900 shadow-xl">
       {/* Scenario Governance Bar */}
       <div className="bg-slate-900 text-slate-100 p-4 rounded-xl border border-slate-800 shadow-md flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-slate-300">Scenario:</span>
             <select
-              className="text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-800 text-slate-100 border border-slate-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+              className="text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-800 text-slate-100 border border-slate-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none cursor-pointer"
               value={workingScenario.id}
               onChange={(e) => loadScenario(e.target.value)}
             >
@@ -94,76 +110,23 @@ export const EngineeringPlannerContainer: React.FC = () => {
 
       {/* Navigation Step Tabs */}
       <nav className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 border-b border-slate-800" aria-label="Planner steps">
-        <button
-          onClick={() => setActiveStep("inputs")}
-          className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-            activeStep === "inputs"
-              ? "bg-emerald-600 text-white font-semibold shadow-xs"
-              : "bg-slate-900 text-slate-200 font-medium hover:bg-slate-700 hover:text-white border border-slate-700/80"
-          }`}
-        >
-          1. System Inputs
-        </button>
-        <button
-          onClick={() => setActiveStep("pv")}
-          className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-            activeStep === "pv"
-              ? "bg-emerald-600 text-white font-semibold shadow-xs"
-              : "bg-slate-900 text-slate-200 font-medium hover:bg-slate-700 hover:text-white border border-slate-700/80"
-          }`}
-        >
-          2. PV Topology Validator
-        </button>
-        <button
-          onClick={() => setActiveStep("coldvoc")}
-          className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-            activeStep === "coldvoc"
-              ? "bg-emerald-600 text-white font-semibold shadow-xs"
-              : "bg-slate-900 text-slate-200 font-medium hover:bg-slate-700 hover:text-white border border-slate-700/80"
-          }`}
-        >
-          2B. Cold Voc Calculator
-        </button>
-        <button
-          onClick={() => setActiveStep("load")}
-          className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-            activeStep === "load"
-              ? "bg-emerald-600 text-white font-semibold shadow-xs"
-              : "bg-slate-900 text-slate-200 font-medium hover:bg-slate-700 hover:text-white border border-slate-700/80"
-          }`}
-        >
-          3. Load Schedule
-        </button>
-        <button
-          onClick={() => setActiveStep("battery")}
-          className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-            activeStep === "battery"
-              ? "bg-emerald-600 text-white font-semibold shadow-xs"
-              : "bg-slate-900 text-slate-200 font-medium hover:bg-slate-700 hover:text-white border border-slate-700/80"
-          }`}
-        >
-          4. Battery Runtime
-        </button>
-        <button
-          onClick={() => setActiveStep("generator")}
-          className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-            activeStep === "generator"
-              ? "bg-emerald-600 text-white font-semibold shadow-xs"
-              : "bg-slate-900 text-slate-200 font-medium hover:bg-slate-700 hover:text-white border border-slate-700/80"
-          }`}
-        >
-          5. Generator Screening
-        </button>
-        <button
-          onClick={() => setActiveStep("review")}
-          className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-            activeStep === "review"
-              ? "bg-slate-900 text-emerald-400 font-semibold border border-emerald-500/50 shadow-xs"
-              : "bg-slate-900 text-slate-200 font-medium hover:bg-slate-700 hover:text-white border border-slate-700/80"
-          }`}
-        >
-          6. Engineering Audit Summary
-        </button>
+        {STEPS.map((step) => {
+          const isActive = activeStep === step.id;
+          return (
+            <button
+              key={step.id}
+              onClick={() => setActiveStep(step.id)}
+              className={`px-3.5 py-2 text-xs rounded-lg whitespace-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+                isActive
+                  ? "bg-emerald-500 text-slate-950 font-bold shadow-md"
+                  : "bg-slate-800/90 text-slate-200 hover:bg-slate-700 hover:text-white border border-slate-700/60"
+              }`}
+            >
+              <span className="hidden sm:inline">{step.label}</span>
+              <span className="inline sm:hidden">{step.shortLabel}</span>
+            </button>
+          );
+        })}
       </nav>
 
       {/* Step Views */}
@@ -188,3 +151,4 @@ export const EngineeringPlannerContainer: React.FC = () => {
     </div>
   );
 };
+
